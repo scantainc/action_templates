@@ -3,6 +3,22 @@ name: Docker
 
 on:
   workflow_call:
+    inputs:
+    secrets:
+      token:
+        required: true
+
+on:
+    workflow_call:
+        inputs:
+            ENVIRONMENT:
+                required: true
+                type: string
+        secrets:
+            AWS_ACCESS_KEY_ID:
+                required: true
+            AWS_SECRET_ACCESS_KEY:
+                required: true
 
 jobs:
   main:

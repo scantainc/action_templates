@@ -57,6 +57,12 @@ jobs:
       if: steps.plan.outcome == 'failure'
       run: exit 1
 
+    - name: Terraform Taint
+      id: taint
+      working-directory: infra
+      run: terraform taint module.main.aws_ecs_task_definition.main
+      continue-on-error: true
+
     - name: Terraform Apply
       working-directory: infra
       run: terraform apply -auto-approve

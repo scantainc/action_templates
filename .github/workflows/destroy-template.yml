@@ -46,6 +46,6 @@ jobs:
       working-directory: infra
       run: terraform validate -no-color
 
-    - name: Terraform Apply
+    - name: Terraform DESTROY
       working-directory: infra
       run: terraform destroy -auto-approve

@@ -27,6 +27,12 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: us-east-1
 
+    - name: Set Environment
+      if: github.ref == 'refs/heads/main'
+      run: echo ENVPATH=infra/env/prd >> $GITHUB_ENV
+      if: github.ref != 'refs/heads/main'
+      run: echo ENVPATH=infra/env/dev >> $GITHUB_ENV
+
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
       with:
@@ -38,17 +44,17 @@ jobs:
 
     - name: Terraform Init
       id: init
-      working-directory: infra
+      working-directory: ${ENVPATH}
       run: terraform init
 
     - name: Terraform Validate
       id: validate
-      working-directory: infra
+      working-directory: ${ENVPATH}
       run: terraform validate -no-color
 
     - name: Terraform Plan
       id: plan
-      working-directory: infra
+      working-directory: ${ENVPATH}
       run: terraform plan -no-color
       continue-on-error: true
 
@@ -59,10 +65,10 @@ jobs:
 
     - name: Terraform Taint
       id: taint
-      working-directory: infra
+      working-directory: ${ENVPATH}
       run: terraform taint module.main.aws_ecs_task_definition.main
       continue-on-error: true
 
     - name: Terraform Apply
-      working-directory: infra
+      working-directory: ${ENVPATH}
       run: terraform apply -auto-approve

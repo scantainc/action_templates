@@ -44,9 +44,9 @@ jobs:
 
     - name: Terraform Init
       id: init
-      working-directory: ${ENVPATH}
+      working-directory: ${{env.ENVPATH}}
       run: terraform init
 
     - name: Terraform DESTROY
-      working-directory: ${ENVPATH}
+      working-directory: ${{env.ENVPATH}}
       run: terraform destroy -auto-approve

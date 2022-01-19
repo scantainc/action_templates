@@ -44,17 +44,17 @@ jobs:
 
     - name: Terraform Init
       id: init
-      working-directory: ${ENVPATH}
+      working-directory: ${{env.ENVPATH}}
       run: terraform init
 
     - name: Terraform Validate
       id: validate
-      working-directory: ${ENVPATH}
+      working-directory: ${{env.ENVPATH}}
       run: terraform validate -no-color
 
     - name: Terraform Plan
       id: plan
-      working-directory: ${ENVPATH}
+      working-directory: ${{env.ENVPATH}}
       run: terraform plan -no-color
       continue-on-error: true
 
@@ -65,10 +65,10 @@ jobs:
 
     - name: Terraform Taint
       id: taint
-      working-directory: ${ENVPATH}
+      working-directory: ${{env.ENVPATH}}
       run: terraform taint module.main.aws_ecs_task_definition.main
       continue-on-error: true
 
     - name: Terraform Apply
-      working-directory: ${ENVPATH}
+      working-directory: ${{env.ENVPATH}}
       run: terraform apply -auto-approve

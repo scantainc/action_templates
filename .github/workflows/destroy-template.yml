@@ -28,10 +28,10 @@ jobs:
         aws-region: us-east-1
 
     - name: Set Environment
+      run: echo ENVPATH=infra/env/dev >> $GITHUB_ENV
+    - name: Set Environment if PRD
       if: github.ref == 'refs/heads/main'
       run: echo ENVPATH=infra/env/prd >> $GITHUB_ENV
-      if: github.ref != 'refs/heads/main'
-      run: echo ENVPATH=infra/env/dev >> $GITHUB_ENV
 
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1

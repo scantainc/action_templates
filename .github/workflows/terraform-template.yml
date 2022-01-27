@@ -70,5 +70,6 @@ jobs:
       continue-on-error: true
 
     - name: Terraform Apply
+      id: apply
       working-directory: ${{env.ENVPATH}}
       run: terraform apply -auto-approve

@@ -48,5 +48,6 @@ jobs:
       run: terraform init
 
     - name: Terraform DESTROY
+      id: destroy
       working-directory: ${{env.ENVPATH}}
       run: terraform destroy -auto-approve

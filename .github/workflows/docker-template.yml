@@ -48,7 +48,6 @@ jobs:
         if: github.ref == 'refs/heads/main'
         run: |
           echo "IMAGE_TAG=latest" >> $GITHUB_ENV
-          echo "MONGO_ENV=prd" >> $GITHUB_ENV
 
       - name: Enable Docker Squash
         id: Docker_Squash

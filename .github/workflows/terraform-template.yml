@@ -33,12 +33,12 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
-
-      - name: Set Environment
-        run: echo ENVPATH=infra/dev >> $GITHUB_ENV
+          
       - name: Set Environment if PRD
         if: github.ref == 'refs/heads/main'
         run: echo ENVPATH=infra/prd >> $GITHUB_ENV
+      - name: Set Environment
+        run: echo ENVPATH=infra/dev >> $GITHUB_ENV
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1

@@ -34,7 +34,8 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      - name: Set Environment
+      - name: Set Environment if DEV
+        if: github.ref == 'refs/heads/dev'
         run: echo ENVPATH=infra/dev >> $GITHUB_ENV
       - name: Set Environment if PRD
         if: github.ref == 'refs/heads/main'
